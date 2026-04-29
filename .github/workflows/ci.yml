@@ -47,6 +47,9 @@ jobs:
   backend-check:
     name: Backend Check
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: src-tauri
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -58,6 +61,9 @@ jobs:
     name: Backend Test
     runs-on: windows-latest
     needs: backend-check
+    defaults:
+      run:
+        working-directory: src-tauri
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -69,6 +75,9 @@ jobs:
     runs-on: windows-latest
     needs: [frontend-build, backend-test]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    defaults:
+      run:
+        working-directory: src-tauri
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
